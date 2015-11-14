@@ -6,7 +6,13 @@ module Ryakuzu
     end
 
     def update_hash
-      p 'hello'
+      if params[:table_name]
+        table = TableService.new(params[:table_name])
+        table.call
+      elsif params[:column_info]
+        column = ColumnService.new(params[:column_info], params[:table_info])
+        column.call
+      end
       redirect_to :back
     end
   end

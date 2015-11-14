@@ -6,5 +6,6 @@
   - column.each do |c|
     p= c
     = form_for 'schema', url: :update_hash do |f|
-      = text_field 'column_name', c, placeholder: c
+      = text_field   'column_info', c, placeholder: c
+      = hidden_field 'table_info',  table
       = f.submit
