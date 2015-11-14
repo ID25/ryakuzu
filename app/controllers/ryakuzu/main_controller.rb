@@ -1,7 +1,13 @@
 module Ryakuzu
   class MainController < ApplicationController
     def index
-      @view = 'hello'
+      schema = SchemaService.new
+      @view = schema.hash
+    end
+
+    def update_hash
+      p 'hello'
+      redirect_to :back
     end
   end
 end

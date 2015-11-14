@@ -1,1 +1,10 @@
-= @view
+- @view.each do |table, column|
+  h2= table
+  = form_for 'schema', url: :update_hash do |f|
+    = text_field 'table_name', table, placeholder: table
+    = f.submit
+  - column.each do |c|
+    p= c
+    = form_for 'schema', url: :update_hash do |f|
+      = text_field 'column_name', c, placeholder: c
+      = f.submit
