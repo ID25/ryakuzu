@@ -39,6 +39,7 @@ class SchemaService
   end
 
   def create_hash
+    return if @@hash.present?
     array      = convert_source
     hash_array = convert_to_hash(array)
 
