@@ -1,16 +1,16 @@
 - @view.each_slice(4) do |slice|
   .row
-    - slice.each do |table, column|
+    - slice.each do |table, columns|
       .col-md-3
         .panel.panel-default
           .panel-heading
             h2.panel-title= "Table: #{table.titleize}"
             br
-            = form_for 'schema', url: :update_hash, html: { class: 'form-horizontal' } do |f|
-              = text_field 'table_name', table, placeholder: table.titleize, class: 'form-control'
+            = form_for 'schema', url: :update_hash, remote: true, html: { class: 'form-horizontal', id: 'update-hash' } do |f|
+              = text_field 'table_name', table, placeholder: table.titleize, class: 'form-control tables', data: { table: table }
           .panel-body
-            - column.each do |c|
-              = form_for 'schema', url: :update_hash, html: { class: 'form-horizontal' } do |f|
+            - columns.each do |column|
+              = form_for 'schema', url: :update_hash, remote: true, html: { class: 'form-horizontal', id: 'update-hash' } do |f|
                 = f.label 'column_info', c
-                = text_field   'column_info', c, placeholder: c, class: 'form-control'
-                = hidden_field 'table_info',  table
+                = text_field   'column_info', column, placeholder: column, class: 'form-control columns', data: { column: column }
+                = hidden_field 'table_info', table, data: { info_table: table }

@@ -5,7 +5,7 @@ class ColumnService
   def initialize(params, table)
     @old_column = params.keys.join('').underscore
     @new_column = params.values.join('').underscore
-    @table      = table.keys.join('').underscore
+    @table      = table.underscore
   end
 
   def call
