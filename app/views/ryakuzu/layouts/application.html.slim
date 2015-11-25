@@ -16,9 +16,5 @@ html lang="en"
 
 
   body
-    .panel
-      .text-center
-        hr
-        = button_to 'Run migration', :update_hash, method: :post, remote: true, class: 'btn btn-success', id: 'submit-form'
     .container
       = yield

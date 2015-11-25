@@ -2,7 +2,7 @@ module Ryakuzu
   class MainController < ApplicationController
     def index
       schema = SchemaService.new
-      @view = schema.hash
+      @schema = schema.hash.as_json
       render template: 'ryakuzu/main/index', layout: 'ryakuzu/layouts/application'
     end
 

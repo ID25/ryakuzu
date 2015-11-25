@@ -1,5 +1,5 @@
 Ryakuzu::Engine.routes.draw do
-  post 'update_hash', to: 'main#update_hash', as: :update_hash
+  resources :tables, only: [:create]
 
   root 'main#index'
 end

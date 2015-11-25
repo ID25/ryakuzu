@@ -12,7 +12,7 @@ $ ->
       $.each hash, (key, value) ->
         if value == '' then delete hash[key]
 
-
+    console.log values
     sendRequest = (hash, type) ->
       if hash
         $.each hash, (key, value) ->

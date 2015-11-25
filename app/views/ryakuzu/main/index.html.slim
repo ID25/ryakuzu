@@ -1,16 +1,18 @@
-- @view.each_slice(4) do |slice|
+- @schema.each_slice(4) do |slice|
   .row
-    - slice.each do |table, columns|
+    - slice.each do |schema|
       .col-md-3
         .panel.panel-default
           .panel-heading
-            h2.panel-title= "Table: #{table.titleize}"
+            - @model = Table.create_model(schema)
+            h4= "Table: #{@model.name.underscore}"
             br
-            = form_for 'schema', url: :update_hash, remote: true, html: { class: 'form-horizontal', id: 'update-hash' } do |f|
-              = text_field 'table_name', table, placeholder: table.titleize, class: 'form-control tables', data: { table: table }
-          .panel-body
-            - columns.each do |column|
-              = form_for 'schema', url: :update_hash, remote: true, html: { class: 'form-horizontal', id: 'update-hash' } do |f|
-                = f.label 'column_info', c
-                = text_field   'column_info', column, placeholder: column, class: 'form-control columns', data: { column: column }
-                = hidden_field 'table_info', table, data: { info_table: table }
+            = form_for @model, html: { class: 'form-horizontal' } do |f|
+              = f.text_field :name, class: 'form-control'
+              h4 Columns
+              = f.fields_for :column, @model.column do |cl|
+                - attr = @model.column.attributes
+                - attr.each_with_index do |v, i|
+                  = cl.text_field "column_#{i}", class: 'form-control'
+              hr
+              = f.submit 'Run Migration', class: 'btn btn-success btn-sm'

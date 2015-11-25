@@ -1,8 +1,9 @@
 class SchemaService
+  require 'virtus'
   attr_accessor :file, :headers_csv
   require 'csv'
   @@schema  = ''
-  @@hash    = { }
+  @@hash    = {}
 
   def initialize
     file  = File.readlines('./db/schema.rb')
@@ -16,25 +17,29 @@ class SchemaService
 
   def hash
     call
-    @@hash
+    @@hash.keys
+    @models = []
+    @@hash.each do |key, value|
+      @models << Table.generate_models(key, value)
+    end
+    @models
   end
 
   private
 
   def parse_schema
     file.each do |line|
-    	parts = line.split ' '
-    	unless parts == nil or parts.length < 1 or parts[0] == '#'
-    		if parts[0] == 'create_table'
-    			table_name = parts[1].delete("\"").delete(',')
-          @@schema << "__#{table_name},"
-    		end
+      parts = line.split ' '
+      next if parts.nil? || parts.length < 1 || parts[0] == '#'
+      if parts[0] == 'create_table'
+        table_name = parts[1].delete("\"").delete(',')
+        @@schema << "__#{table_name},"
+      end
 
-    		if parts[0][0] == 't'
-    			field_name = parts[1].delete("\",").chomp('t.')
-          @@schema << "#{field_name}__"
-    		end
-    	end
+      if parts[0][0] == 't'
+        field_name = parts[1].delete("\",").chomp('t.')
+        @@schema << "#{field_name}__"
+      end
     end
   end
 
@@ -43,26 +48,26 @@ class SchemaService
     array      = convert_source
     hash_array = convert_to_hash(array)
 
-    hash_array.each_with_index do |i, v|
-      @@hash.merge!( { i[0] => i.reject { |k| k == i[0] } } )
+    hash_array.each_with_index do |i, _v|
+      @@hash.merge!(i[0] => i.reject { |k| k == i[0] })
     end
   end
 
   def convert_source
     @@schema    = @@schema.split('__').join(',')
-    @@schema[0] =  ''
+    @@schema[0] = ''
     @@schema.split(',,')
   end
 
   def convert_to_hash(array)
-    _arr = []
-    array.each do |k, v|
-      _arr << k.split(',')
+    arr_m = []
+    array.each do |k, _v|
+      arr_m << k.split(',')
     end
-    _arr
+    arr_m
   end
 
   def schema_to_csv
-    CSV.open("schema.csv", "wb") {|csv| @@hash.to_a.each {|elem| csv << elem} }
+    CSV.open('schema.csv', 'wb') { |csv| @@hash.to_a.each { |elem| csv << elem } }
   end
 end
