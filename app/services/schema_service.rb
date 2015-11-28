@@ -1,13 +1,13 @@
 class SchemaService
   require 'virtus'
-  attr_accessor :file, :headers_csv
+  attr_accessor :file, :schema, :sch_hash
   require 'csv'
-  @@schema  = ''
-  @@hash    = {}
 
   def initialize
-    file  = File.readlines('./db/schema.rb')
-    @file = file
+    file      = File.readlines('./db/schema.rb')
+    @file     = file
+    @schema   = ''
+    @sch_hash = {}
   end
 
   def call
@@ -17,9 +17,8 @@ class SchemaService
 
   def hash
     call
-    @@hash.keys
     @models = []
-    @@hash.each do |key, value|
+    sch_hash.each do |key, value|
       @models << Table.generate_models(key, value)
     end
     @models
@@ -37,7 +36,7 @@ class SchemaService
       next unless @field_name == column
       type    = parts[0].gsub!('t.', '')
       default = parts[3].delete("\",") if parts[3]
-      key_d   = parts[2] if parts[2]
+      key_d   = parts[2].gsub(':', '') if parts[2]
       if parts[1]
         if @field_name.end_with? '_id'
           @hash = { key_d => default, type: type }
@@ -48,7 +47,7 @@ class SchemaService
         end
       end
     end
-    Column.new(@hash).column_info
+    Column.new(@hash.symbolize_keys).column_info
   end
 
   private
@@ -59,30 +58,30 @@ class SchemaService
       next if parts.nil? || parts.length < 1 || parts[0] == '#'
       if parts[0] == 'create_table'
         table_name = parts[1].delete("\"").delete(',')
-        @@schema << "__#{table_name},"
+        schema << "__#{table_name},"
       end
 
       if parts[0][0] == 't'
         field_name  = parts[1].delete("\",").chomp('t.')
-        @@schema << "#{field_name}__"
+        schema << "#{field_name}__"
       end
     end
   end
 
   def create_hash
-    return if @@hash.present?
+    return if sch_hash.present?
     array      = convert_source
     hash_array = convert_to_hash(array)
 
     hash_array.each_with_index do |i, _v|
-      @@hash.merge!(i[0] => i.reject { |k| k == i[0] })
+      sch_hash.merge!(i[0] => i.reject { |k| k == i[0] })
     end
   end
 
   def convert_source
-    @@schema    = @@schema.split('__').join(',')
-    @@schema[0] = ''
-    @@schema.split(',,')
+    @schema = schema.split('__').join(',')
+    schema[0] = ''
+    schema.split(',,')
   end
 
   def convert_to_hash(array)
@@ -94,6 +93,6 @@ class SchemaService
   end
 
   def schema_to_csv
-    CSV.open('schema.csv', 'wb') { |csv| @@hash.to_a.each { |elem| csv << elem } }
+    CSV.open('schema.csv', 'wb') { |csv| sch_hash.to_a.each { |elem| csv << elem } }
   end
 end

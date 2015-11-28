@@ -2,9 +2,9 @@ class Column < Schema
   attr_accessor :default, :type, :null
 
   def initialize(hash = {})
-    @default  = hash['default:']
+    @default  = hash[:default]
     @type     = hash[:type]
-    @null     = hash['null:']
+    @null     = hash[:null]
   end
 
   def column_info
