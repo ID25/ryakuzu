@@ -25,6 +25,32 @@ class SchemaService
     @models
   end
 
+  def take_column(table, column)
+    file.each do |line|
+      parts = line.split ' '
+      next if parts.nil? || parts.length < 1 || parts[0] == '#'
+      if parts[0] == 'create_table'
+        @table_name = parts[1].delete("\"").delete(',')
+      end
+      next unless @table_name == table
+      @field_name = parts[1].delete("\",").chomp('t.') if parts[0][0] == 't'
+      next unless @field_name == column
+      type    = parts[0].gsub!('t.', '')
+      default = parts[3].delete("\",") if parts[3]
+      key_d   = parts[2] if parts[2]
+      if parts[1]
+        if @field_name.end_with? '_id'
+          @hash = { key_d => default, type: type }
+        elsif key_d.nil?
+          @hash = { key_d => default, type: type }
+        else
+          @hash = { key_d => default, type: type } if parts[2] && parts[0] != 'add_index'
+        end
+      end
+    end
+    Column.new(@hash).column_info
+  end
+
   private
 
   def parse_schema
@@ -37,7 +63,7 @@ class SchemaService
       end
 
       if parts[0][0] == 't'
-        field_name = parts[1].delete("\",").chomp('t.')
+        field_name  = parts[1].delete("\",").chomp('t.')
         @@schema << "#{field_name}__"
       end
     end

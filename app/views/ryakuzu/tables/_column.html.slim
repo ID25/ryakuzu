@@ -1,0 +1,10 @@
+h3= "Table: #{@table}"
+h4= "Column: #{@column}"
+= form_for @opts, url: :column_options, html: { class: 'form-horizontal' } do |f|
+  = f.label :default
+  = f.text_field :default, class: 'form-control', placeholder: f
+  = f.label :type
+  = f.text_field :type, class: 'form-control', placeholder: f
+  = f.label :null
+  = f.text_field :null, class: 'form-control', placeholder: f
+  = f.submit 'Run', class: 'btn btn-info'

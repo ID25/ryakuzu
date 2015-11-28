@@ -1,6 +1,4 @@
 class Table < Schema
-  class Column < Schema; end
-
   include Virtus.relations(as: :table)
 
   attribute :name, String

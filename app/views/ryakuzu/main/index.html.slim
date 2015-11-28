@@ -13,6 +13,10 @@
               = f.fields_for :column, @model.column do |cl|
                 - attr = @model.column.attributes
                 - attr.each_with_index do |v, i|
-                  = cl.text_field "column_#{i}", class: 'form-control'
+                  .input-group
+                    = cl.text_field "column_#{i}", class: 'form-control'
+                    span.input-group-btn
+                      = link_to 'options', column_path(column: "#{v[1]}", table: @model.name.underscore), method: :post, remote: true, class: 'btn btn-sm btn-primary pull-right', data: { toggle: 'modal', target: "#imagemodal" }
               hr
               = f.submit 'Run Migration', class: 'btn btn-success btn-sm'
+= render 'ryakuzu/main/column_form'
