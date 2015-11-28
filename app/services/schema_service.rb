@@ -17,11 +17,11 @@ class SchemaService
 
   def hash
     call
-    @models = []
+    models = []
     sch_hash.each do |key, value|
-      @models << Table.generate_models(key, value)
+      models << Table.generate_models(key, value)
     end
-    @models
+    models
   end
 
   def take_column(table, column)
@@ -36,15 +36,12 @@ class SchemaService
       next unless @field_name == column
       type    = parts[0].gsub!('t.', '')
       default = parts[3].delete("\",") if parts[3]
-      key_d   = parts[2].gsub(':', '') if parts[2]
-      if parts[1]
-        if @field_name.end_with? '_id'
-          @hash = { key_d => default, type: type }
-        elsif key_d.nil?
-          @hash = { key_d => default, type: type }
-        else
-          @hash = { key_d => default, type: type } if parts[2] && parts[0] != 'add_index'
-        end
+      key_d   = parts[2].delete(':') if parts[2]
+      next unless parts[1]
+      if (@field_name.end_with? '_id') || (key_d.nil?)
+        @hash = { key_d => default, type: type }
+      else
+        @hash = { key_d => default, type: type } if parts[2] && parts[0] != 'add_index'
       end
     end
     Column.new(@hash.symbolize_keys).column_info
@@ -62,7 +59,7 @@ class SchemaService
       end
 
       if parts[0][0] == 't'
-        field_name  = parts[1].delete("\",").chomp('t.')
+        field_name = parts[1].delete("\",").chomp('t.')
         schema << "#{field_name}__"
       end
     end
