@@ -7,4 +7,10 @@ h4= "Column: #{@column}"
   = f.text_field :type, class: 'form-control', placeholder: f
   = f.label :null
   = f.text_field :null, class: 'form-control', placeholder: f
+  br
+  .col-md-3
+    = f.label :index
+    .pull-right
+      = f.check_box :index, placeholder: f
+  hr
   = f.submit 'Run', class: 'btn btn-info'

@@ -31,23 +31,38 @@ class SchemaService
       if parts[0] == 'create_table'
         @table_name = parts[1].delete("\"").delete(',')
       end
+
       next unless @table_name == table
       @field_name = parts[1].delete("\",").chomp('t.') if parts[0][0] == 't'
       next unless @field_name == column
       type    = parts[0].gsub!('t.', '')
       default = parts[3].delete("\",") if parts[3]
       key_d   = parts[2].delete(':') if parts[2]
+      column  = parts[1].delete("\",") if parts[1]
+      index   = get_index
       next unless parts[1]
       if (@field_name.end_with? '_id') || (key_d.nil?)
-        @hash = { key_d => default, type: type }
+        @hash = { table: @table_name, column: column, key_d => default, type: type, index: index }
       else
-        @hash = { key_d => default, type: type } if parts[2] && parts[0] != 'add_index'
+        @hash = { table: @table_name, column: column, key_d => default, type: type, index: index } if parts[2] && parts[0] != 'add_index'
       end
     end
     Column.new(@hash.symbolize_keys).column_info
   end
 
   private
+
+  def get_index
+    file.each do |line|
+      parts = line.split ' '
+      next if parts.nil? || parts.length < 1 || parts[0] == '#'
+      if parts[0] == 'add_index'
+        @index = [parts[1], parts[2]].map! { |i| i.delete!("\",") }
+        @index[1].delete!('[').delete!(']')
+      end
+    end
+    @index.join(' ')
+  end
 
   def parse_schema
     file.each do |line|

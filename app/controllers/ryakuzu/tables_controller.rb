@@ -3,7 +3,8 @@ module Ryakuzu
     respond_to :js
 
     def create
-      # TODO: handle params
+      @param    = params[:table]
+      redirect_to :back
     end
 
     def column

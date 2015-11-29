@@ -9,12 +9,14 @@
             br
             = form_for @model, html: { class: 'form-horizontal' } do |f|
               = f.text_field :name, class: 'form-control'
+              = f.hidden_field "old_name", value: @model.name
               h4 Columns
               = f.fields_for :column, @model.column do |cl|
                 - attr = @model.column.attributes
                 - attr.each_with_index do |v, i|
                   .input-group
                     = cl.text_field "column_#{i}", class: 'form-control'
+                    = cl.hidden_field "old_#{i}", value: "#{v[1]}"
                     span.input-group-btn
                       = link_to 'options', column_path(column: "#{v[1]}", table: @model.name.underscore), method: :post, remote: true, class: 'btn btn-sm btn-primary pull-right', data: { toggle: 'modal', target: "#imagemodal" }
               hr
