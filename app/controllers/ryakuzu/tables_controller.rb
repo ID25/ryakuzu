@@ -3,7 +3,9 @@ module Ryakuzu
     respond_to :js
 
     def create
-      @param    = params[:table]
+      param     = params[:table]
+      migration = MigrationService.new(param)
+      migration.call
       redirect_to :back
     end
 
