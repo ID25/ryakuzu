@@ -1,6 +1,9 @@
 class Column < Schema
   attr_accessor :hash, :table, :column, :default, :type, :null, :index
 
+  COLUMN_TYPES = ['String', 'Boolean', 'Integer',
+                  'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].uniq
+
   def initialize(hash = {})
     @hash     = hash
     @table    = hash[:table]

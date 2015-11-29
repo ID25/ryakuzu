@@ -9,7 +9,7 @@ class ColumnDefaults < Schema
   class << self
     def generate_object(table, column, default, type, null, index)
       result = case default
-        when nil then 'nil'
+        when nil then ''
         when "" then '""'
         else default
       end

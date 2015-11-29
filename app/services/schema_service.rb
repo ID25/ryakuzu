@@ -39,12 +39,11 @@ class SchemaService
       default = parts[3].delete("\",") if parts[3]
       key_d   = parts[2].delete(':') if parts[2]
       column  = parts[1].delete("\",") if parts[1]
+      null    = [parts[4], parts[5]] if parts[4] && parts[5]
       index   = get_index(@table_name, column)
       next unless parts[1]
-      if (@field_name.end_with? '_id') || (key_d.nil?)
-        @hash = { table: @table_name, column: column, key_d => default, type: type, index: index }
-      else
-        @hash = { table: @table_name, column: column, key_d => default, type: type, index: index } if parts[2] && parts[0] != 'add_index'
+      if (@field_name.end_with? '_id') || (key_d.nil?) || (parts[2] && parts[0] != 'add_index')
+        @hash = { table: @table_name, column: column, key_d => default, type: type, index: index, null: null }
       end
     end
     Column.new(@hash.symbolize_keys).column_info

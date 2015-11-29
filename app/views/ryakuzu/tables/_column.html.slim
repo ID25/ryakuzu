@@ -1,16 +1,23 @@
-h3= "Table: #{@table}"
-h4= "Column: #{@column}"
+h3.text-primary= "Table: #{@table}"
+h4.text-warning= "Column: #{@column}"
 = form_for @opts, url: :column_options, html: { class: 'form-horizontal' } do |f|
   = f.label :default
-  = f.text_field :default, class: 'form-control', placeholder: f
+  = f.text_field :default, class: 'form-control', placeholder: "For example: '''' empty string "
   = f.label :type
-  = f.text_field :type, class: 'form-control', placeholder: f
-  = f.label :null
-  = f.text_field :null, class: 'form-control', placeholder: f
-  br
-  .col-md-3
-    = f.label :index
-    .pull-right
+  .form-group
+    .col-md-9
+      = f.select :type, ["Current: #{@opts.type.titleize}",'String', 'Boolean', 'Integer',
+                  'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }, {}, { class: 'form-control' }
+  .row
+    br
+    .col-md-6
+      = f.label :null
+      div>
+      small> Mark to set null: true or false
+      = f.check_box :null, placeholder: f
+    .col-md-6
+      = f.label :index
+      div>
+      small> Mark to add or remove index
       = f.check_box :index, placeholder: f
-  hr
   = f.submit 'Run', class: 'btn btn-info'
