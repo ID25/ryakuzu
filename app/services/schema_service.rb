@@ -39,7 +39,7 @@ class SchemaService
       default = parts[3].delete("\",") if parts[3]
       key_d   = parts[2].delete(':') if parts[2]
       column  = parts[1].delete("\",") if parts[1]
-      index   = get_index
+      index   = get_index(@table_name, column)
       next unless parts[1]
       if (@field_name.end_with? '_id') || (key_d.nil?)
         @hash = { table: @table_name, column: column, key_d => default, type: type, index: index }
@@ -52,16 +52,19 @@ class SchemaService
 
   private
 
-  def get_index
+  def get_index(table, column)
     file.each do |line|
       parts = line.split ' '
       next if parts.nil? || parts.length < 1 || parts[0] == '#'
-      if parts[0] == 'add_index'
+      next unless parts[0] == 'add_index'
+      current_table = parts[1].delete("\",")
+      current_column = parts[2].delete("\",").delete!('[').delete!(']')
+      if (current_column == column) && (current_table == table)
         @index = [parts[1], parts[2]].map! { |i| i.delete!("\",") }
-        @index[1].delete!('[').delete!(']')
+        @index.join(' ')
       end
     end
-    @index.join(' ')
+    @index
   end
 
   def parse_schema
