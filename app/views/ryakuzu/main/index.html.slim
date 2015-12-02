@@ -4,7 +4,7 @@
       .col-md-3
         .panel.panel-default
           .panel-heading
-            - @model = Table.create_model(schema)
+            - @model = Ryakuzu::Table.create_model(schema)
             h4= "Table: #{@model.name.underscore}"
             br
             = form_for @model, html: { class: 'form-horizontal' } do |f|

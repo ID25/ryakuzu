@@ -4,7 +4,7 @@ module Ryakuzu
 
     def create
       param     = params[:table]
-      migration = MigrationService.new(param)
+      migration = Ryakuzu::MigrationService.new(param)
       migration.call
       redirect_to :back
     end
@@ -12,8 +12,12 @@ module Ryakuzu
     def column
       @column = params[:column]
       @table  = params[:table]
-      @opts   = SchemaService.new.take_column(@table, @column)
+      @opts   = Ryakuzu::ColumnInfo.new.call(@table, @column)
       respond_with @opts
+    end
+
+    def column_options
+      redirect_to :back
     end
   end
 end

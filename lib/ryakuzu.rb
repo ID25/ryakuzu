@@ -1,4 +1,4 @@
-require "ryakuzu/engine"
+require 'ryakuzu/engine'
 
 module Ryakuzu
 end
