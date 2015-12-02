@@ -2,13 +2,17 @@ h3.text-primary= "Table: #{@table}"
 h4.text-warning= "Column: #{@column}"
 =@opts.inspect
 = form_for @opts, url: :column_options, html: { class: 'form-horizontal' } do |f|
+  = f.hidden_field 'parameters[:table]',  value: @table
+  = f.hidden_field 'parameters[:column]', value: @column
   = f.label :default
   = f.text_field :default, class: 'form-control', placeholder: "For example: '''' empty string "
+  = f.hidden_field 'parameters[:old_default]', value: @opts.default
   = f.label :type
   .form-group
     .col-md-9
       = f.select :type, ["Current: #{@opts.type}",'String', 'Boolean', 'Integer',
                   'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }, {}, { class: 'form-control' }
+  = f.hidden_field 'parameters[:old_type]', value: @opts.type
   .row
     br
     .col-md-6
@@ -16,9 +20,11 @@ h4.text-warning= "Column: #{@column}"
       div>
       small> Mark to set null: true or false
       = f.check_box :null
+      = f.hidden_field 'parameters[:old_null]', value: @opts.null
     .col-md-6
       = f.label :index
       div>
       small> Mark to add or remove index
       = f.check_box :index
+      = f.hidden_field 'parameters[:old_index]', value: @opts.index
   = f.submit 'Run', class: 'btn btn-info'

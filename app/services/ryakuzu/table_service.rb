@@ -8,8 +8,8 @@ module Ryakuzu
     end
 
     def call
-      text = "rename_table :#{old_table}, :#{new_table}"
-      Ryakuzu::RunMigration.new(old_table: old_table, new_table: new_table).call(new_table, text, 'table')
+      text = "rename_table :#{old_table}, :#{new_table.tableize}"
+      Ryakuzu::RunMigration.new(old_table: old_table, new_table: new_table.tableize).call(new_table.tableize, text, 'table')
     end
   end
 end

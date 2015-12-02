@@ -9,7 +9,7 @@ module Ryakuzu
     end
 
     def call
-      text = "rename_column :#{table}, :#{old_column}, :#{new_column}"
+      text = "rename_column :#{table.tableize}, :#{old_column}, :#{new_column}"
       Ryakuzu::RunMigration.new(old_column: old_column, new_column: new_column).call(new_column, text, 'column')
     end
   end
