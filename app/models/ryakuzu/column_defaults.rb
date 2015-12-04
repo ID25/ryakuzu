@@ -13,7 +13,7 @@ module Ryakuzu
       p hash
       hash.each { |key, val| send("#{key}=", val) }
       self.null    = null
-      self.null    = false unless null
+      self.null    = 'none' unless null
       self.default = '""' if default == ""
     end
   end

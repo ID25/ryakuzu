@@ -19,12 +19,12 @@ h4.text-warning= "Column: #{@column}"
       = f.label :null
       div>
       small> Mark to set null: true or false
-      = f.check_box :null
+      = f.select :null, ['none', true, false].map { |i| i }
       = f.hidden_field 'parameters[:old_null]', value: @opts.null
     .col-md-6
       = f.label :index
       div>
       small> Mark to add or remove index
-      = f.check_box :index
+      = f.select :index, ['none', true, false].map { |i| i }
       = f.hidden_field 'parameters[:old_index]', value: @opts.index
   = f.submit 'Run', class: 'btn btn-info'

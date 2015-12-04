@@ -19,7 +19,7 @@ module Ryakuzu
     def column_options
       parameters = params[:column_defaults]
       migration  = Ryakuzu::ColumnDefaultService.new(parameters)
-
+      migration.call
       redirect_to :back
     end
   end
