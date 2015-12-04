@@ -44,8 +44,7 @@ module Ryakuzu
     end
 
     def alert(opt, opt2, tabl, kolumn)
-      p opt
-      p opt2
+
     end
   end
 end

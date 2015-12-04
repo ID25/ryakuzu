@@ -10,7 +10,6 @@ module Ryakuzu
     attribute :index,   Boolean
 
     def initialize(hash, null)
-      p hash
       hash.each { |key, val| send("#{key}=", val) }
       self.null    = null
       self.null    = 'none' unless null
