@@ -2,7 +2,7 @@ module Ryakuzu
   class MigrationService
     attr_accessor :columns, :table, :old_table
 
-    def initialize(params)
+    def initialize(params = {})
       @columns   = params['column']
       @table     = params['name']
       @old_table = params['old_name']

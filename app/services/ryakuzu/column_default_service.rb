@@ -2,7 +2,8 @@ require_relative '../../../lib/ryakuzu/boolean_patch'
 
 module Ryakuzu
   class ColumnDefaultService
-    attr_reader :params, :default, :index, :null, :type, :table, :column, :old_null, :old_default, :parameters
+    attr_reader :params, :default, :index, :null, :type, :table, :column,
+                :old_null, :old_default, :parameters, :old_type
 
     def initialize(params)
       @params      = params
@@ -11,25 +12,27 @@ module Ryakuzu
       @index       = params['index']
       @null        = params['null']
       @type        = params['type']
-      @table       = params['parameters'][':table']
-      @column      = params['parameters'][':column']
-      @old_null    = params['parameters'][':old_null']
+      @table       = params['table']
+      @column      = params['column']
+      @old_type    = params['parameters'][':old_type']
       @old_default = params['parameters'][':old_default']
     end
 
     def call
-      processing_param
-      current = parameters.reject { |k, _v| [':table', ':column'].include? k }
+      processing_params
+      current = params.reject { |k, _v| %w(table column).include? k }.except('parameters')
 
-      zip = current.zip(params.except('parameters'))
+      zip = current.zip(params['parameters'])
+
       zip.each do |k, v|
-        alert(k, v, table, column) if k[1] != v[1]
+        run_column_default_migration(k, table, column) if k[1] != v[1]
       end
     end
 
     private
 
-    def processing_param
+    def processing_params
+      # TODO: make index and null select
       [null, index, old_null].each do |key|
         case key
         when 'none' then 'none'
@@ -43,8 +46,11 @@ module Ryakuzu
       type.gsub!('Current: ', '')
     end
 
-    def alert(opt, opt2, tabl, kolumn)
-
+    def run_column_default_migration(opt, tabl, kolumn)
+      type_kolumn = opt[1].downcase.to_sym
+      text = "remove_column :#{tabl.tableize}, :#{kolumn}\n"
+      text.concat "add_column :#{tabl.tableize}, :#{kolumn}, :#{type_kolumn}"
+      Ryakuzu::RunMigration.new(table: tabl, column: kolumn).call(kolumn, text, 'column')
     end
   end
 end
