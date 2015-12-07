@@ -3,6 +3,7 @@ hr
 = form_tag :create_table, class: 'form-horizontal', remote: true do
   p Table name
   = text_field :table, :name, class: 'form-control'
+  = render 'ryakuzu/tables/input'
   #inputs
   = submit_tag 'Create Table', class: 'btn btn-primary'
   = link_to 'Add Column', new_column_path, method: :post, remote: true, class: 'btn btn-info waves-effect waves-light'
