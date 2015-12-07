@@ -3,9 +3,7 @@ module Ryakuzu
     respond_to :js
 
     def create
-      parameters = params[:table]
-      migration  = Ryakuzu::MigrationService.new(parameters)
-      migration.call
+      Ryakuzu::MigrationService.new(params[:table]).call
       redirect_to :back
     end
 
@@ -17,9 +15,12 @@ module Ryakuzu
     end
 
     def column_options
-      parameters = params[:column_defaults]
-      migration  = Ryakuzu::ColumnDefaultService.new(parameters)
-      migration.call
+      Ryakuzu::ColumnDefaultService.new(params[:column_defaults]).call
+      redirect_to :back
+    end
+
+    def remove_column
+      Ryakuzu::RemoveService.new(params[:table], params[:column]).call
       redirect_to :back
     end
   end
