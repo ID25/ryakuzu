@@ -16,6 +16,8 @@ html lang="en"
 
 
   body
+    = render 'ryakuzu/layouts/header'
+    hr
     .container
       - if flash.any?
         - flash.each do |name, msg|

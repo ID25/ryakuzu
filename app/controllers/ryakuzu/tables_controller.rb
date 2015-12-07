@@ -41,5 +41,13 @@ module Ryakuzu
       Ryakuzu::AddColumnService.new(table, column, type).call
       redirect_to :back
     end
+
+    def add_table;  end
+    def new_column; end
+
+    def create_table
+      Ryakuzu::CreateTableService.new(params[:table], params[:column], params[:type]).call
+      redirect_to :back
+    end
   end
 end
