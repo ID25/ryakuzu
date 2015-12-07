@@ -45,6 +45,14 @@ module Ryakuzu
     def add_table;  end
     def new_column; end
 
+    def save_csv
+      schema = Ryakuzu::SchemaService.new
+      schema.call
+      schema.schema_to_csv
+      send_file('schema.csv')
+      schema.remove_csv
+    end
+
     def create_table
       Ryakuzu::CreateTableService.new(params[:table], params[:column], params[:type]).call
       redirect_to :back

@@ -10,6 +10,7 @@ Ryakuzu::Engine.routes.draw do
   post 'add_table',       to: 'tables#add_table',       as: :add_table
   post 'create_table',    to: 'tables#create_table',    as: :create_table
   post 'new_column',      to: 'tables#new_column',      as: :new_column
+  post 'save_csv',        to: 'tables#save_csv',        as: :save_csv
 
   root 'main#index'
 end

@@ -3,6 +3,7 @@ module Ryakuzu
     require 'virtus'
     attr_accessor :file, :schema, :sch_hash
     require 'csv'
+    require 'fileutils'
 
     def initialize
       file      = File.readlines('./db/schema.rb')
@@ -23,6 +24,15 @@ module Ryakuzu
         models << Ryakuzu::Table.generate_models(key, value)
       end
       models
+    end
+
+    def schema_to_csv
+      CSV.open('schema.csv', 'wb') { |csv| sch_hash.to_a.each { |elem| csv << elem } }
+    end
+
+    def remove_csv
+      csv = File.new('schema.csv', 'a+')
+      File.delete(csv)
     end
 
     private
@@ -65,10 +75,6 @@ module Ryakuzu
         arr_m << k.split(',')
       end
       arr_m
-    end
-
-    def schema_to_csv
-      CSV.open('schema.csv', 'wb') { |csv| sch_hash.to_a.each { |elem| csv << elem } }
     end
   end
 end
