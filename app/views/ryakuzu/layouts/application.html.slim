@@ -7,8 +7,9 @@ html lang="en"
     title Ryakuzu
     = favicon_link_tag "favicon.png"
     = csrf_meta_tags
-    = stylesheet_link_tag    "ryakuzu/application"
     = javascript_include_tag "ryakuzu/application"
+    = render 'ryakuzu/layouts/cdn'
+    = stylesheet_link_tag    "ryakuzu/application", media: 'all'
     /! HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
     /![if lt IE 9]
       script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"
