@@ -1,6 +1,9 @@
 .container
   .row
+    hr
     .col-md-3
-      = link_to 'Create Table', :add_table, method: :post, remote: true, class: 'btn btn-md btn-info', data: { toggle: 'modal', target: "#tablemodal" }
+      h4.text-success Ryakuzu - schema.rb interface
     .col-md-3
-      = link_to 'Save schema to CSV', :save_csv, method: :post, class: 'btn btn-primary'
+      = link_to 'Create Table', :add_table, method: :post, remote: true, class: 'btn btn-md btn-info waves-effect waves-light btn', data: { toggle: 'modal', target: "#tablemodal" }
+    .col-md-3
+      = link_to 'Save schema to CSV', :save_csv, method: :post, class: 'btn btn-primary waves-effect waves-light btn'

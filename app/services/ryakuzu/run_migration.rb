@@ -33,7 +33,7 @@ module Ryakuzu
       File.delete(output)
       fail StandardError if result == false
     rescue StandardError
-      "Cannot drop table, maybe it has reference to other tables? Find #{klass.tableize}_id and remove it."
+      "Cannot drop table, maybe it has reference to other tables? Find #{klass.singularize.downcase}_id and remove it."
     end
   end
 end

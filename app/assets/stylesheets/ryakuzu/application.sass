@@ -14,4 +14,57 @@
  *= require_self
  */
 
-@import 'bootstrap'
+// Core variables and mixins
+@import "bootstrap/variables"
+@import "bootstrap/mixins"
+
+// Reset and dependencies
+@import "bootstrap/normalize"
+@import "bootstrap/print"
+@import "bootstrap/glyphicons"
+
+// Core CSS
+@import "bootstrap/scaffolding"
+@import "bootstrap/type"
+@import "bootstrap/code"
+@import "bootstrap/grid"
+@import "bootstrap/tables"
+@import "bootstrap/forms"
+@import "bootstrap/buttons"
+
+// Components
+
+@import "bootstrap/input-groups"
+@import "bootstrap/labels"
+@import "bootstrap/alerts"
+@import "bootstrap/media"
+@import "bootstrap/list-group"
+@import "bootstrap/panels"
+@import "bootstrap/responsive-embed"
+
+input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea
+  font-size: 1.3rem
+
+label
+  font-size: 1.3rem
+  color: #6D6D6D
+
+.option-button
+  &:before
+    content: '+'
+    font-size: 24px
+    padding: 11px
+  &:hover:before
+    color: white
+
+a
+  &:hover
+    text-decoration: none
+
+.notice
+  padding: 20px
+  background: antiquewhite
+  border-radius: 10px
+  margin: 0px 0px 25px 0px
+  font-size: 16px
+  color: black

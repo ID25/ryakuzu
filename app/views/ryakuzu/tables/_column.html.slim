@@ -9,8 +9,8 @@ h6.text-danger=  "Null: #{@opts.null}" if @opts.null
   .form-group
     .col-md-9
       = f.select :type, ["Current: #{@opts.type}",'String', 'Boolean', 'Integer',
-                  'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }, {}, { class: 'form-control' }
+                  'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }, {}, { class: 'browser-default' }
   = f.hidden_field 'parameters[:old_type]', value: @opts.type
-  = f.submit 'Run', class: 'btn btn-info'
-  .pull-right
-    = link_to 'Remove Column', remove_column_path(table: @table ,column: @column), method: :post, class: 'btn btn-sm btn-danger', data: { confirm: "Remove column #{@column}?" }
+  .col-md-3
+    = f.submit 'Run', class: 'btn btn-info waves-effect waves-light'
+  = link_to 'Remove Column', remove_column_path(table: @table ,column: @column), method: :post, class: 'btn btn-sm btn-danger waves-effect waves-light', data: { confirm: "Remove column #{@column}?" }

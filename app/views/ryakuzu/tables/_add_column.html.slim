@@ -1,8 +1,9 @@
 h1= "Table: #{@table.tableize}"
 = form_tag :add_column, class: 'form-horizontal' do
+  = label_tag 'Create Column'
   = text_field :name, :column, class: 'form-control'
-  .col-md-8
+  .col-md-8.input-field
     = select_tag :type, options_for_select(['String', 'Boolean', 'Integer',
-              'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }), { class: 'form-control' }
+              'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }), { class: 'browser-default' }
   = hidden_field_tag :table, @table
-  = submit_tag 'Create Column', class: 'btn btn-sm btn-success'
+  = submit_tag 'Create Column', class: 'btn btn-sm btn-success waves-effect waves-light'
