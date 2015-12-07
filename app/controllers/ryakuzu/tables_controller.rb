@@ -20,8 +20,13 @@ module Ryakuzu
     end
 
     def remove_column
-      Ryakuzu::RemoveService.new(params[:table], params[:column]).call
+      Ryakuzu::RemoveService.new(table: params[:table], column: params[:column]).call
       redirect_to :back
+    end
+
+    def remove_table
+      result = Ryakuzu::RemoveService.new(table: params[:table]).call
+      redirect_to :back, notice: result
     end
   end
 end

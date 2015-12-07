@@ -20,12 +20,20 @@ module Ryakuzu
       #{text_line}
     end
   end"
+      migration(migrate_name, text, class_name)
+    end
 
-      output = File.new("./db/migrate/#{migrate_name}", 'a+')
-      output << text
+    private
+
+    def migration(migrate, text_migration, klass)
+      output = File.new("./db/migrate/#{migrate}", 'a+')
+      output << text_migration
       output.close
-      system 'rake db:migrate'
+      result = system 'rake db:migrate'
       File.delete(output)
+      fail StandardError if result == false
+    rescue StandardError
+      "Cannot drop table, maybe it has reference to other tables? Find #{klass.tableize}_id and remove it."
     end
   end
 end

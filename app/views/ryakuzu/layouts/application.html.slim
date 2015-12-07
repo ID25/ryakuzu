@@ -17,4 +17,7 @@ html lang="en"
 
   body
     .container
+      - if flash.any?
+        - flash.each do |name, msg|
+          = content_tag :div, msg, class: name
       = yield

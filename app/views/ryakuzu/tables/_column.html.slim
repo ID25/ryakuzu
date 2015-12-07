@@ -13,4 +13,4 @@ h6.text-danger=  "Null: #{@opts.null}" if @opts.null
   = f.hidden_field 'parameters[:old_type]', value: @opts.type
   = f.submit 'Run', class: 'btn btn-info'
   .pull-right
-    = link_to 'Remove Column', remove_column_path(table: @table ,column: @column), method: :post, class: 'btn btn-sm btn-danger'
+    = link_to 'Remove Column', remove_column_path(table: @table ,column: @column), method: :post, class: 'btn btn-sm btn-danger', data: { confirm: "Remove column #{@column}?" }
