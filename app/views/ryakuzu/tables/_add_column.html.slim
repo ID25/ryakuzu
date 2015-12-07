@@ -1,5 +1,5 @@
 h1= "Table: #{@table.tableize}"
-= form_tag :add_column, class: 'form-horizontal' do
+= form_tag :add_column, class: 'form-horizontal', remote: true do
   = label_tag 'Create Column'
   = text_field :name, :column, class: 'form-control'
   .col-md-8.input-field

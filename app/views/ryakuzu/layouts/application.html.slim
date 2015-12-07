@@ -17,6 +17,10 @@ html lang="en"
 
   body
     = render 'ryakuzu/layouts/header'
+    .container
+      .row
+        .col-md-3
+          = render 'ryakuzu/layouts/preload'
     hr
     .container
       - if flash.any?

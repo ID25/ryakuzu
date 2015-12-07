@@ -3,8 +3,8 @@ module Ryakuzu
     respond_to :js
 
     def create
-      Ryakuzu::MigrationService.new(params[:table]).call
-      redirect_to :back
+      result = Ryakuzu::MigrationService.new(params[:table]).call
+      respond_with result
     end
 
     def column
@@ -15,13 +15,13 @@ module Ryakuzu
     end
 
     def column_options
-      Ryakuzu::ColumnDefaultService.new(params[:column_defaults]).call
-      redirect_to :back
+      result = Ryakuzu::ColumnDefaultService.new(params[:column_defaults]).call
+      respond_with result
     end
 
     def remove_column
-      Ryakuzu::RemoveService.new(table: params[:table], column: params[:column]).call
-      redirect_to :back
+      result = Ryakuzu::RemoveService.new(table: params[:table], column: params[:column]).call
+      respond_with result
     end
 
     def remove_table
@@ -38,8 +38,8 @@ module Ryakuzu
       table   = params[:table]
       column  = params[:name]['column']
       type    = params[:type]
-      Ryakuzu::AddColumnService.new(table, column, type).call
-      redirect_to :back
+      result  = Ryakuzu::AddColumnService.new(table, column, type).call
+      respond_with result
     end
 
     def add_table;  end
@@ -54,8 +54,8 @@ module Ryakuzu
     end
 
     def create_table
-      Ryakuzu::CreateTableService.new(params[:table], params[:column], params[:type]).call
-      redirect_to :back
+      result = Ryakuzu::CreateTableService.new(params[:table], params[:column], params[:type]).call
+      respond_with result
     end
   end
 end

@@ -7,7 +7,7 @@
             - @model = Ryakuzu::Table.create_model(schema)
             h4= "Table: #{@model.name.underscore}"
             br
-            = form_for @model, html: { class: 'form-horizontal' } do |f|
+            = form_for @model, html: { class: 'form-horizontal' }, remote: true do |f|
               = f.text_field :name, class: 'form-control'
               = f.hidden_field "old_name", value: @model.name
               h4 Columns
@@ -18,15 +18,14 @@
                     = cl.text_field "column_#{i}", class: 'form-control'
                     = cl.hidden_field "old_#{i}", value: "#{v[1]}"
                     span.input-group-btn
-                      = link_to 'options', column_path(column: "#{v[1]}", table: @model.name.underscore), method: :post, remote: true, class: 'btn-floating waves-effect waves-light green option-button', data: { toggle: 'modal', target: "#imagemodal" }
-                      i.material-icons add
+                      = link_to 'options', column_path(column: "#{v[1]}", table: @model.name.underscore), method: :post, remote: true, class: 'btn-floating waves-effect waves-light green option-button'
               hr
               .row
                 .col-md-12
                   = f.submit 'Run Migration', class: 'btn btn-success'
               .row
                 .col-md-12
-                  = link_to 'Add Column', add_column_form_path(table: @model.name), method: :post, remote: true, class: 'btn btn-warning waves-effect waves-light', data: { toggle: 'modal', target: "#columnmodal" }
+                  = link_to 'Add Column', add_column_form_path(table: @model.name), method: :post, remote: true, class: 'btn btn-warning waves-effect waves-light'
               .row
                 .col-md-12
                   = link_to 'Remove Table', remove_table_path(table: @model.name), method: :post, class: 'btn btn-danger waves-effect waves-light', data: { confirm: "Remove table #{@model.name}?" }

@@ -1,6 +1,6 @@
 h1 Create Table
 hr
-= form_tag :create_table, class: 'form-horizontal' do
+= form_tag :create_table, class: 'form-horizontal', remote: true do
   p Table name
   = text_field :table, :name, class: 'form-control'
   #inputs

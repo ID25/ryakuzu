@@ -26,7 +26,7 @@ module Ryakuzu
     def make_string(hash)
       str = ''
       hash.each do |key, value|
-        str += key + ':' + value.downcase + ' '
+        str += key + ':' + value.downcase + ' ' if value
       end
       str
     end
