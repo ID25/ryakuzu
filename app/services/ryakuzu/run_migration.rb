@@ -14,13 +14,17 @@ module Ryakuzu
       date = DateTime.now.to_s(:number)
       class_name   = migration.classify
       migrate_name = "#{date}_change_#{type}_#{class_name.underscore}.rb"
-      text =
-      "class Change#{type.titleize}#{class_name} < ActiveRecord::Migration
-    def change
-      #{text_line}
-    end
-  end"
+      text = text_migration(type, class_name, text_line)
+
       migration(migrate_name, text, class_name)
+    end
+
+    def text_migration(type, class_name, text_line)
+      "class Change#{type.titleize}#{class_name} < ActiveRecord::Migration
+      def change
+        #{text_line}
+      end
+    end"
     end
 
     private
