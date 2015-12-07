@@ -28,5 +28,18 @@ module Ryakuzu
       result = Ryakuzu::RemoveService.new(table: params[:table]).call
       redirect_to :back, notice: result
     end
+
+    def add_column_form
+      @table = params[:table]
+      respond_with @table
+    end
+
+    def add_column
+      table   = params[:table]
+      column  = params[:name]['column']
+      type    = params[:type]
+      Ryakuzu::AddColumnService.new(table, column, type).call
+      redirect_to :back
+    end
   end
 end

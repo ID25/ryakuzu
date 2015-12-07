@@ -21,6 +21,7 @@
                       = link_to 'options', column_path(column: "#{v[1]}", table: @model.name.underscore), method: :post, remote: true, class: 'btn btn-sm btn-primary pull-right', data: { toggle: 'modal', target: "#imagemodal" }
               hr
               = f.submit 'Run Migration', class: 'btn btn-success btn-sm'
-              .pull-right
-                = link_to 'Remove Table', remove_table_path(table: @model.name), method: :post, class: 'btn btn-sm btn-danger', data: { confirm: "Remove table #{@model.name}?" }
+              = link_to 'Add Column', add_column_form_path(table: @model.name), method: :post, remote: true, class: 'btn btn-sm btn-warning', data: { toggle: 'modal', target: "#columnmodal" }
+              = link_to 'Remove Table', remove_table_path(table: @model.name), method: :post, class: 'btn btn-sm btn-danger', data: { confirm: "Remove table #{@model.name}?" }
 = render 'ryakuzu/main/column_form'
+= render 'ryakuzu/main/add_column_form'
