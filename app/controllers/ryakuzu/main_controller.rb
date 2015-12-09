@@ -1,5 +1,5 @@
 module Ryakuzu
-  class MainController < ApplicationController
+  class MainController < RootController
     def index
       schema = Ryakuzu::SchemaService.new
       @schema = schema.hash.as_json

@@ -1,5 +1,5 @@
 module Ryakuzu
-  class ApplicationController < ActionController::Base
+  class RootController < ActionController::Base
     rescue_from Errno::ENOENT, with: :render_500
     helper_method :schema_present?
 

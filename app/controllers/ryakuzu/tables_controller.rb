@@ -1,5 +1,5 @@
 module Ryakuzu
-  class TablesController < ApplicationController
+  class TablesController < RootController
     def create
       result = Ryakuzu::MigrationService.new(params[:table]).call
       responds_to(result)
