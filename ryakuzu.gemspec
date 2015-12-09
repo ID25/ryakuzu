@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails', '>= 3.1.0'
   s.add_dependency 'virtus'
   s.add_dependency 'slim-rails'
-  s.add_dependency 'responders', '~> 2.0'
   s.add_dependency 'virtus-relations'
 
   s.add_development_dependency 'sqlite3'

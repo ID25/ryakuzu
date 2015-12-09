@@ -1,5 +1,4 @@
 require 'slim-rails'
-require 'responders'
 
 module Ryakuzu
   class Engine < ::Rails::Engine
