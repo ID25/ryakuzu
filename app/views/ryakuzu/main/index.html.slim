@@ -8,14 +8,14 @@
             h4= "Table: #{@model.name.underscore}"
             br
             = form_for @model, html: { class: 'form-horizontal' }, remote: true do |f|
-              = f.text_field :name, class: 'form-control'
+              = f.text_field :name, class: 'form-control', pattern: '^[A-Za-z_]{1,150}$', title: 'Remove numbers, or non english words'
               = f.hidden_field "old_name", value: @model.name
               h4 Columns
               = f.fields_for :column, @model.column do |cl|
                 - attr = @model.column.attributes
                 - attr.each_with_index do |v, i|
                   .input-group
-                    = cl.text_field "column_#{i}", class: 'form-control'
+                    = cl.text_field "column_#{i}", class: 'form-control', pattern: '^[A-Za-z_]{1,150}$', title: 'Remove numbers, or non english words'
                     = cl.hidden_field "old_#{i}", value: "#{v[1]}"
                     span.input-group-btn
                       = link_to 'options', column_path(column: "#{v[1]}", table: @model.name.underscore), method: :post, remote: true, class: 'btn-floating waves-effect waves-light green option-button'

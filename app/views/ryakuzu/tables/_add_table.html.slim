@@ -2,7 +2,7 @@ h1 Create Table
 hr
 = form_tag :create_table, class: 'form-horizontal', remote: true do
   p Table name
-  = text_field :table, :name, class: 'form-control', placeholder: 'Table name...'
+  = text_field :table, :name, class: 'form-control', placeholder: 'Table name...', pattern: '^[A-Za-z_]{1,150}$', title: 'Remove numbers, or non english words'
   = render 'ryakuzu/tables/input'
   #inputs
   = submit_tag 'Create Table', class: 'btn btn-primary'
