@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ryakuzu (0.1.5)
+    ryakuzu (0.2.0)
       jquery-rails (>= 3.1.0)
       rails (>= 3.1.0)
       responders (~> 2.0)
