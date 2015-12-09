@@ -2,24 +2,24 @@ module Ryakuzu
   class TablesController < ApplicationController
     def create
       result = Ryakuzu::MigrationService.new(params[:table]).call
-      respond_with result
+      responds_to(result)
     end
 
     def column
       @column = params[:column]
       @table  = params[:table]
       @opts   = Ryakuzu::ColumnInfo.new.call(@table, @column)
-      responds
+      responds_to(@opts)
     end
 
     def column_options
-      Ryakuzu::ColumnDefaultService.new(params[:column_defaults]).call
-      responds
+      result = Ryakuzu::ColumnDefaultService.new(params[:column_defaults]).call
+      responds_to(result)
     end
 
     def remove_column
-      Ryakuzu::RemoveService.new(table: params[:table], column: params[:column]).call
-      responds
+      result = Ryakuzu::RemoveService.new(table: params[:table], column: params[:column]).call
+      responds_to(result)
     end
 
     def remove_table
@@ -28,16 +28,16 @@ module Ryakuzu
     end
 
     def add_column_form
-      params[:table]
-      responds
+      @table = params[:table]
+      responds_to(@table)
     end
 
     def add_column
       table   = params[:table]
       column  = params[:name]['column']
       type    = params[:type]
-      Ryakuzu::AddColumnService.new(table, column, type).call
-      responds
+      result  = Ryakuzu::AddColumnService.new(table, column, type).call
+      responds_to(result)
     end
 
     def add_table;  end
@@ -55,15 +55,16 @@ module Ryakuzu
     end
 
     def create_table
-      Ryakuzu::CreateTableService.new(params[:table], params[:column], params[:type]).call
-      responds
+      result = Ryakuzu::CreateTableService.new(params[:table], params[:column], params[:type]).call
+      responds_to(result)
     end
 
     private
 
-    def responds
+    def responds_to(variable)
       respond_to do |format|
-        format.js
+        format.html
+        format.js { variable }
       end
     end
   end
