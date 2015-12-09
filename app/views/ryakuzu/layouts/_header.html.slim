@@ -6,8 +6,8 @@
     .col-md-3
       h4.text-success#text-logo Ryakuzu - schema.rb interface
     .col-md-2
-      = link_to 'Create Table', :add_table, method: :post, remote: true, class: 'btn btn-md btn-info waves-effect waves-light btn', data: { toggle: 'modal', target: "#tablemodal" }
+      = link_to 'Create Table', :add_table, method: :post, remote: true, class: 'btn btn-md btn-info waves-effect waves-light btn', data: { toggle: 'modal', target: "#tablemodal" } if schema_present?
     .col-md-3
-      = link_to 'Save schema to CSV', :save_csv, method: :post, class: 'btn btn-primary waves-effect waves-light btn'
+      = link_to 'Save schema to CSV', :save_csv, method: :post, class: 'btn btn-primary waves-effect waves-light btn' if schema_present?
     .col-md-2
       iframe frameborder="0" height="30px" scrolling="0" src="https://ghbtns.com/github-btn.html?user=ID25&repo=ryakuzu&type=star&count=true&size=large" width="160px"
