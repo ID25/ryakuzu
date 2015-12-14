@@ -3,7 +3,7 @@ module Ryakuzu
     include Ryakuzu::SchemaExtenstions
 
     def initialize
-      @file   = File.open('./db/schema.rb')
+      @file   = File.open(Rails.root.join('db', 'schema.rb'))
       @schema = Ryakuzu::Ripper.parse(file)
     end
 

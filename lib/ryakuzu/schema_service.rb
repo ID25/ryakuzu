@@ -3,7 +3,7 @@ module Ryakuzu
     include Ryakuzu::SchemaExtenstions
 
     def initialize
-      @file     = File.readlines('./db/schema.rb')
+      @file     = File.readlines(Rails.root.join('db', 'schema.rb'))
       @schema   = ''
       @sch_hash = {}
     end
