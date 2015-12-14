@@ -46,11 +46,19 @@ module Ryakuzu
       type.gsub!('Current: ', '')
     end
 
-    def run_column_default_migration(opt, tabl, kolumn)
-      type_kolumn = opt[1].downcase.to_sym
-      text = "remove_column :#{tabl.tableize}, :#{kolumn}\n"
-      text.concat "add_column :#{tabl.tableize}, :#{kolumn}, :#{type_kolumn}"
+    def run_column_default_migration(type_column, tabl, kolumn)
+      text = remove_column_text(tabl, kolumn, type_column)
+      p tabl
+      p kolumn
+      p type_column
+
       Ryakuzu::RunMigration.new(table: tabl, column: kolumn).call(kolumn, text, 'column')
+    end
+
+    def remove_column_text(tabl, kolumn, type_column)
+      type_kolumn = type_column[1].downcase.to_sym
+      text        = "remove_column :#{tabl.tableize}, :#{kolumn}\n"
+      text.concat "add_column :#{tabl.tableize}, :#{kolumn}, :#{type_kolumn}"
     end
   end
 end
