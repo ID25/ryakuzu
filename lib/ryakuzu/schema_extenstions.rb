@@ -4,7 +4,7 @@ module Ryakuzu
     require 'csv'
     require 'fileutils'
 
-    attr_reader :file, :schema, :sch_hash
+    attr_reader :file, :schema, :schema_hash
 
     private
 

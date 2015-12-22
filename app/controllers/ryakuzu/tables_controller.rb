@@ -46,7 +46,6 @@ module Ryakuzu
 
     def save_csv
       schema = Ryakuzu::SchemaService.new
-      schema.call
       schema.schema_to_csv
       File.open('schema.csv', 'r') do |f|
         send_data f.read, type: 'text/csv', filename: 'schema.csv'
