@@ -48,10 +48,6 @@ module Ryakuzu
 
     def run_column_default_migration(type_column, tabl, kolumn)
       text = remove_column_text(tabl, kolumn, type_column)
-      p tabl
-      p kolumn
-      p type_column
-
       Ryakuzu::RunMigration.new(table: tabl, column: kolumn).call(kolumn, text, 'column')
     end
 
