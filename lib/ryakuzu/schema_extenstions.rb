@@ -8,12 +8,12 @@ module Ryakuzu
 
     private
 
-    def table_name(table)
-      table.delete("\"").delete(',')
+    def table_field(table)
+      table.delete("\"").delete(',') if table
     end
 
-    def field_name(field)
-      field.delete("\",").chomp('t.')
+    def column_field(field)
+      field.delete("\",").chomp('t.') if field
     end
   end
 end

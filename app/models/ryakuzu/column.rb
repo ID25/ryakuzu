@@ -11,7 +11,7 @@ module Ryakuzu
       @null     = hash[:null]
     end
 
-    def column_info
+    def column_defaults
       @null = to_boolean(null)
       Ryakuzu::ColumnDefaults.new(hash, null)
     end
