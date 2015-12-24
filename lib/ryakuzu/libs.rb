@@ -1,0 +1,15 @@
+require_relative './tools/schema_extenstions'
+require_relative './tools/boolean_patch'
+
+require_relative './schema_parsing/ripper'
+require_relative './schema_parsing/schema_service'
+require_relative './schema_parsing/column_info'
+
+require_relative './services/add_column_service'
+require_relative './services/column_default_service'
+require_relative './services/column_service'
+require_relative './services/create_table_service'
+require_relative './services/migration_service'
+require_relative './services/remove_service'
+require_relative './services/run_migration'
+require_relative './services/table_service'

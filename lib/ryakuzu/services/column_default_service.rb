@@ -1,5 +1,3 @@
-require_relative '../../../lib/ryakuzu/boolean_patch'
-
 module Ryakuzu
   class ColumnDefaultService
     attr_reader :params, :default, :index, :null, :type, :table, :column,
