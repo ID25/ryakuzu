@@ -12,7 +12,8 @@ module Ryakuzu
     end
 
     def schema_present?
-      File.file?('db/schema.rb')
+      schema = Rails.root.join('db', 'schema.rb')
+      File.file?(schema)
     end
   end
 end
