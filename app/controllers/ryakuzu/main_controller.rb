@@ -3,7 +3,7 @@ module Ryakuzu
     def index
       schema = Ryakuzu::SchemaService.new
       @schema = schema.call.as_json
-      render template: 'ryakuzu/main/index', layout: 'ryakuzu/layouts/application'
+      render template: 'ryakuzu/main/index'
     end
   end
 end
