@@ -15,17 +15,9 @@ group :development do
 end
 ```
 
-
-> /config/routes.rb
-
-```ruby
-mount Ryakuzu::Engine => '/ryakuzu'
-```
-
 ##### Now you can visit ``http://localhost:3000/ryakuzu``
 
 ## Contributing
-##### Ryakuzu not stable yet, so all contributions welcome.
 
 + Fork it
 + Create your feature branch (git checkout -b my-new-feature)
@@ -40,7 +32,7 @@ mount Ryakuzu::Engine => '/ryakuzu'
 
 ## The MIT License (MIT)
 
-Copyright (c) 2015 ID25
+Copyright (c) 2015 Eugene Domosedov (ID25)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
