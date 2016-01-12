@@ -9,6 +9,7 @@ module Ryakuzu
     private
 
     def schema_error
+      @disable = true
       render :schema_error
     end
   end

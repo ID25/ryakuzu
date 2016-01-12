@@ -8,6 +8,7 @@ module Ryakuzu
     private
 
     def render_500
+      @disable = true
       render template: 'ryakuzu/main/error_500', status: 500
     end
 
