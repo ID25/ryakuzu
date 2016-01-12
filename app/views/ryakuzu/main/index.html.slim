@@ -4,6 +4,7 @@
       .col-md-3
         .panel.panel-default
           .panel-heading
+            // TODO: Move logic out of view
             - @model = Ryakuzu::Table.create_model(schema)
             h4= "Table: #{@model.name.underscore}"
             br
