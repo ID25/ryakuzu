@@ -1,10 +1,17 @@
 require 'test_helper'
 
 class ColumnDefaultServiceTest < ActiveSupport::TestCase
-  test 'valid migration text' do
-    migration = Ryakuzu::ColumnDefaultService.new('table' => 'users', 'column' => 'accepted', 'type' => 'Boolean', 'parameters' => { ':old_type' => 'string' })
+  test 'migration text for string' do
+    migration = Ryakuzu::MigrationText.new('users', 'available', 'string', true)
 
-    except = "remove_column :users, :accepted\nadd_column :users, :accepted, :boolean"
-    assert_equal except, migration.send(:remove_column_text, 'users', 'accepted', %w(type Boolean))
+    except = "remove_column :users, :available\nadd_column :users, :available, :string, default: 'true'"
+    assert_equal except, migration.default_migration
+  end
+
+  test 'migration text for type' do
+    migration = Ryakuzu::MigrationText.new('users', 'available', 'Integer', '')
+
+    except = "remove_column :users, :available\nadd_column :users, :available, :integer"
+    assert_equal except, migration.type_migration
   end
 end
