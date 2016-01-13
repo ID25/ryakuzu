@@ -36,9 +36,8 @@ module Ryakuzu
           next unless parts[1]
           hash        = remove_extra_chars(parts[0..1])
           column      = column_and_type(hash, table_name)
-          words       = parts[2..parts.count]
-          parameters  = remove_extra_chars(words)
-          temporary   = make_hash(parameters) if parameters
+          words       = default_words(parts[2..parts.count])
+          temporary   = make_hash(words) if words
           return column.merge!(temporary)
         end
       end
@@ -58,6 +57,20 @@ module Ryakuzu
         temporary.merge!(Hash[*slice])
       end
       temporary
+    end
+
+    def default_words(words)
+      value = remove_extra_chars(words)
+      if value.count > 1
+        value[2..value.count].each do |word|
+          temp = value[1] + ' '
+          temp.concat(word)
+          value[1] = temp
+          value[2..value.count] = nil
+          value.reject!(&:nil?)
+        end
+      end
+      value
     end
   end
 end

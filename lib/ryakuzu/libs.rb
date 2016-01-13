@@ -1,5 +1,6 @@
 require_relative './tools/schema_extenstions'
 require_relative './tools/boolean_patch'
+require_relative './tools/migration_text'
 
 require_relative './schema_parsing/ripper'
 require_relative './schema_parsing/schema_service'

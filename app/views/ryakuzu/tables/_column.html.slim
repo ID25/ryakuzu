@@ -1,16 +1,22 @@
-h3.text-primary= "Table: #{@table}"
-h4.text-warning= "Column: #{@column}"
-h5.text-info=    "Default: #{@opts.default}" if @opts.default
-h6.text-danger=  "Null: #{@opts.null}" if @opts.null
+h3.text-primary = "Table: #{@table}"
+h4.text-warning = "Column: #{@column}"
+h5.text-info    = "Default: #{@opts.default}" if @opts.default
+h6.text-danger =  "Null: #{@opts.null}" if @opts.null
 = form_for @opts, url: :column_options, html: { class: 'form-horizontal' }, remote: true do |f|
   = f.hidden_field :table,  value: @table
   = f.hidden_field :column, value: @column
-  = f.label :type
   .form-group
     .col-md-9
-      = f.select :type, ["Current: #{@opts.type}",'String', 'Boolean', 'Integer',
+      .row
+        .col-md-9
+          = f.label :type
+          = f.select :type, ["Current: #{@opts.type}",'String', 'Boolean', 'Integer',
                   'Text', 'Float', 'Decimal', 'Binary', 'Date', 'Time', 'DateTime'].map { |i| i }, {}, { class: 'browser-default' }
-  = f.hidden_field 'parameters[:old_type]', value: @opts.type
+        .col-md-3
+          = label_tag 'Default value'
+          = f.text_field :default, class: 'form-control', placeholder: 'Default value...'
+  = f.hidden_field 'parameters[:old_type]',    value: @opts.type
+  = f.hidden_field 'parameters[:old_default]', value: @opts.default
   .col-md-3
     = f.submit 'Run', class: 'btn btn-info waves-effect waves-light ajax'
   = link_to 'Remove Column', remove_column_path(table: @table ,column: @column), method: :post, class: 'btn btn-sm btn-danger waves-effect waves-light', data: { confirm: "Remove column #{@column}?" }, remote: true
