@@ -1,6 +1,6 @@
 # Ryakuzu
 #### Interface for schema.rb
-[![Gem Version](https://badge.fury.io/rb/ryakuzu.svg)](https://badge.fury.io/rb/ryakuzu)
+[![Gem Version](https://badge.fury.io/rb/ryakuzu.svg)](https://badge.fury.io/rb/ryakuzu) [![Build Status](https://travis-ci.org/ID25/ryakuzu.svg?branch=master)](https://travis-ci.org/ID25/ryakuzu)
 
 ![Alt text](http://i.imgur.com/71EVVrQ.png "Ryakuzu")
 ___
