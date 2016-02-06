@@ -17,6 +17,23 @@ end
 
 ##### Now you can visit ``http://localhost:3000/ryakuzu``
 
+## Features
+#### Tables:
++ Create table (also created model)
++ Remove table (model not deleted)
++ Rename table
+
+#### Columns:
++ Create column
++ Remove column
++ Rename Column
++ Change column type (`string, integer`, etc...)
++ Add default value for column (`:integer, :price, default: 99`)
+
+#### Other
++ Save schema to CSV
+
+
 ## Contributing
 
 + Fork it
@@ -32,7 +49,7 @@ end
 
 ## The MIT License (MIT)
 
-Copyright (c) 2015 Eugene Domosedov (ID25)
+Copyright (c) 2015-2016 Eugene Domosedov (ID25)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
